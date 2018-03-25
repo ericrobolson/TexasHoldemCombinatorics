@@ -48,15 +48,26 @@ def rank_hand(handString):
 	suits = [s[1] for r,s in enumerate(hand)]
 	ranks = sorted([s[0] for r,s in enumerate(hand)], key=lambda i:rankvalues[i], reverse=True)
 	
-	flush = len(set(suits)) == 1
 	max_rank = rankvalues[ranks[0]]
 	min_rank = rankvalues[ranks[-1]]
 	
 	straight = (max_rank - min_rank) == 4 and len(set(ranks)) == 5
+	flush = len(set(suits)) == 1
 	
-	if straight and flush: 
-		return CONST_STRAIGHT_FLUSH, ranks
-	
-	
+	def of_a_kind(numCards, butnot=None):	
+		if butnot == None:
+			return [r for r in ranks if ranks.count(r) == numCards][:numCards]
+		
+		return [r for r in ranks if ranks.count(r) == numCards and r not in butnot]
+		
+		
+	if straight and flush: return CONST_STRAIGHT_FLUSH, ranks
+	if of_a_kind(4): return CONST_FOUR_OF_A_KIND, of_a_kind(4), of_a_kind(1)
+	if of_a_kind(3) and of_a_kind(2): return CONST_FULL_HOUSE, of_a_kind(3), of_a_kind(2)
+	if flush: return CONST_FLUSH, ranks
+	if straight: return CONST_STRAIGHT, ranks
+	if of_a_kind(3): return CONST_THREE_OF_A_KIND, of_a_kind(3), [card for card in ranks if card not in of_a_kind(3)]
+	if of_a_kind(2) and of_a_kind(2, of_a_kind(2)): return CONST_TWO_PAIR, of_a_kind(2), of_a_kind(2, of_a_kind(2)), of_a_kind(1)
+	if of_a_kind(2): return CONST_PAIR, of_a_kind(2), [card for card in ranks if card not in of_a_kind(2)]	
 	return CONST_HIGH_CARD, ranks
 

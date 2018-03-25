@@ -1,4 +1,12 @@
 [
   "test_hand_ranker.py::test_rank_hand_Ad2c3h6d8s_returns_1_A8632",
-  "test_hand_ranker.py::test_rank_hand_AsKsQsJsTs_returns_9_AKQJT"
+  "test_hand_ranker.py::test_rank_hand_AsKsQsJsTs_returns_9_AKQJT",
+  "test_hand_ranker.py::test_rank_hand_9c8c7c6c5c_returns_9_98765",
+  "test_hand_ranker.py::test_rank_hand_4c4d4h4sAc_returns_8_4444A",
+  "test_hand_ranker.py::test_rank_hand_4c4d4hAdAc_returns_7_444AA",
+  "test_hand_ranker.py::test_rank_hand_9c2cKcAc6c_returns_6_AK962",
+  "test_hand_ranker.py::test_rank_hand_9c8c7c6c5d_returns_5_98765",
+  "test_hand_ranker.py::test_rank_hand_4c4d4hAd2c_returns_4_444A2",
+  "test_hand_ranker.py::test_rank_hand_4c4dAhAd2c_returns_3_44AA2",
+  "test_hand_ranker.py::test_rank_hand_3c5dAhAd2c_returns_2_AA532"
 ]
