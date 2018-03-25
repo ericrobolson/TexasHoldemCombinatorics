@@ -1,0 +1,4 @@
+[
+  "test_hand_ranker.py::test_rank_hand_Ad2c3h6d8s_returns_1_A8632",
+  "test_hand_ranker.py::test_rank_hand_AsKsQsJsTs_returns_9_AKQJT"
+]

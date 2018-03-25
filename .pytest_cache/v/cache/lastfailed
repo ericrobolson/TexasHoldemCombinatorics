@@ -1,0 +1,6 @@
+{
+  "test_hand_ranker.py::test_answer": true,
+  "test_hand_ranker.py::test_convert_hand_string_to_hand_integer": true,
+  "test_hand_ranker.py::test_rank_hand_AsKsQsJs10s_returns_9_AKQJ10": true,
+  "test_sample.py::test_answer": true
+}
