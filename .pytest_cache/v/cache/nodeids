@@ -8,5 +8,6 @@
   "test_hand_ranker.py::test_rank_hand_9c8c7c6c5d_returns_5_98765",
   "test_hand_ranker.py::test_rank_hand_4c4d4hAd2c_returns_4_444A2",
   "test_hand_ranker.py::test_rank_hand_4c4dAhAd2c_returns_3_44AA2",
-  "test_hand_ranker.py::test_rank_hand_3c5dAhAd2c_returns_2_AA532"
+  "test_hand_ranker.py::test_rank_hand_3c5dAhAd2c_returns_2_AA532",
+  "test_hand_ranker.py::test_rank_hand_Ac2c3c4c5c_returns_9_54321"
 ]
