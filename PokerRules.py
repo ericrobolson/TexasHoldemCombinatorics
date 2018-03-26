@@ -47,42 +47,39 @@ def rank_hand_list(hand):
 				
 	# Straight flush
 	if straight and flush: 
-		return CONST_STRAIGHT_FLUSH, get_rank_values(ranks)
+		return CONST_STRAIGHT_FLUSH, [get_rank_values(ranks)]
 	
 	kind4 = of_a_kind(4)
 	kind1 = of_a_kind(1)
 		
 	# 4 of a kind
 	if kind4: 
-		return CONST_FOUR_OF_A_KIND, get_rank_values(kind4), get_rank_values(kind1)
+		return CONST_FOUR_OF_A_KIND, [get_rank_values(kind4), get_rank_values(kind1)]
 	
 	kind3 = of_a_kind(3)
 	kind2 = of_a_kind(2)
 		
 	# Full house
 	if kind3 and kind2: 
-		return CONST_FULL_HOUSE, get_rank_values(kind3), get_rank_values(kind2)
+		return CONST_FULL_HOUSE, [get_rank_values(kind3), get_rank_values(kind2)]
 	if flush: 
-		return CONST_FLUSH, get_rank_values(ranks)
+		return CONST_FLUSH, [get_rank_values(ranks)]
 	if straight: 
-		return CONST_STRAIGHT, get_rank_values(ranks)
+		return CONST_STRAIGHT, [get_rank_values(ranks)]
 	# 3 of a kind
 	if kind3: 
-		return CONST_THREE_OF_A_KIND, get_rank_values(kind3), get_rank_values([card for card in ranks if card not in kind3])
+		return CONST_THREE_OF_A_KIND, [get_rank_values(kind3), get_rank_values([card for card in ranks if card not in kind3])]
 	
 	secondKind2 = of_a_kind(2, kind2)
 	
 	# 2 pair
 	if kind2 and secondKind2: 
-		return CONST_TWO_PAIR, get_rank_values(kind2), get_rank_values(secondKind2), get_rank_values(kind1)
+		return CONST_TWO_PAIR, [get_rank_values(kind2), get_rank_values(secondKind2), get_rank_values(kind1)]
 	# Pair
 	if kind2: 
-		return CONST_PAIR, get_rank_values(kind2), get_rank_values([card for card in ranks if card not in kind2]	)
+		return CONST_PAIR, [get_rank_values(kind2), get_rank_values([card for card in ranks if card not in kind2])]
 	# High card
-	return CONST_HIGH_CARD, get_rank_values(ranks)
-	
-	
-	
+	return CONST_HIGH_CARD, [get_rank_values(ranks)]
 	
 
 def get_best_hand(handString):
@@ -96,26 +93,28 @@ def get_best_hand(handString):
 	permuations = list(itertools.combinations(hand, hand_size))
 	best_hand = permuations[0]
 	best_hand_value = rank_hand_list(best_hand)
-	
-	print(best_hand)
-	
-	for current_hand in permuations:
 		
+	for current_hand in permuations:
 		new_hand_value = rank_hand_list(current_hand)
 		hand_type_power_index = 0
 		
-		print("new hand")
-		print(current_hand)
-		print(new_hand_value)
+		new_hand_power = new_hand_value[hand_type_power_index]
+		best_hand_power = best_hand_value[hand_type_power_index]
 		
-		if (new_hand_value[hand_type_power_index] > best_hand_value[hand_type_power_index]):
+		if (new_hand_power > best_hand_power):
 			best_hand_value = new_hand_value
 			best_hand = current_hand
 			continue
-		elif new_hand_value[hand_type_power_index] == best_hand_value[hand_type_power_index]:
+		elif new_hand_power == best_hand_power:
 			# compare the hands and pick the one with the highest value
-			x = 1
+			hand_value_index = 1
+			
+			flattened_new_hand_values = [item for sublist in new_hand_value[hand_value_index] for item in sublist]
+			flattened_best_hand_values = [item for sublist in best_hand_value[hand_value_index] for item in sublist]
+			
+			for i in range(0,5):
+				if flattened_new_hand_values[i] > flattened_best_hand_values[i]:
+					best_hand = current_hand
+					best_hand_value = new_hand_value			
 	
-	print(best_hand)
-	
-get_best_hand("4c,5d,3h,7s,Jc,Kd,Kc")
+	return list(best_hand)
