@@ -1,3 +1,5 @@
+import itertools
+
 rankvalues = dict((r,i) 
                    for i,r in enumerate('..23456789TJQKA'))
 
@@ -14,6 +16,11 @@ CONST_HIGH_CARD = 1
 # Rank a CSV separated hand of the format '9c,10d,5s,3h,2d'
 def rank_hand(handString):
 	hand = handString.split(',')
+	return rank_hand_list(hand)
+	
+	
+def rank_hand_list(hand):
+	
 		
 	suits = [s[1] for r,s in enumerate(hand)]
 	ranks = sorted([s[0] for r,s in enumerate(hand)], key=lambda i:rankvalues[i], reverse=True)
@@ -73,3 +80,42 @@ def rank_hand(handString):
 		return CONST_PAIR, get_rank_values(kind2), get_rank_values([card for card in ranks if card not in kind2]	)
 	# High card
 	return CONST_HIGH_CARD, get_rank_values(ranks)
+	
+	
+	
+	
+
+def get_best_hand(handString):
+	hand = handString.split(',')
+	
+	hand_size = 5
+
+	if len(hand) < hand_size:
+		raise ValueError("Hand length must be at least 5 cards")
+	
+	permuations = list(itertools.combinations(hand, hand_size))
+	best_hand = permuations[0]
+	best_hand_value = rank_hand_list(best_hand)
+	
+	print(best_hand)
+	
+	for current_hand in permuations:
+		
+		new_hand_value = rank_hand_list(current_hand)
+		hand_type_power_index = 0
+		
+		print("new hand")
+		print(current_hand)
+		print(new_hand_value)
+		
+		if (new_hand_value[hand_type_power_index] > best_hand_value[hand_type_power_index]):
+			best_hand_value = new_hand_value
+			best_hand = current_hand
+			continue
+		elif new_hand_value[hand_type_power_index] == best_hand_value[hand_type_power_index]:
+			# compare the hands and pick the one with the highest value
+			x = 1
+	
+	print(best_hand)
+	
+get_best_hand("4c,5d,3h,7s,Jc,Kd,Kc")
