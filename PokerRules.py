@@ -1,6 +1,6 @@
 import itertools
 
-rankvalues = dict((r,i) 
+CONST_RANK_VALUES = dict((r,i) 
                    for i,r in enumerate('..23456789TJQKA'))
 
 CONST_STRAIGHT_FLUSH = 9
@@ -18,15 +18,13 @@ def rank_hand(handString):
 	hand = handString.split(',')
 	return rank_hand_list(hand)
 	
-	
-def rank_hand_list(hand):
-	
-		
+def rank_hand_list(hand):	
 	suits = [s[1] for r,s in enumerate(hand)]
-	ranks = sorted([s[0] for r,s in enumerate(hand)], key=lambda i:rankvalues[i], reverse=True)
-
-	max_rank = rankvalues[ranks[0]]
-	min_rank = rankvalues[ranks[-1]]
+	ranks = sorted([s[0] for r,s in enumerate(hand)], key=lambda i:CONST_RANK_VALUES[i], reverse=True)
+	print(suits)
+	
+	max_rank = CONST_RANK_VALUES[ranks[0]]
+	min_rank = CONST_RANK_VALUES[ranks[-1]]
 	
 	is_a_to_five_straight = ['A','5','4','3','2'] == ranks
 	
@@ -37,7 +35,7 @@ def rank_hand_list(hand):
 		if is_a_to_five_straight:
 			return [5,4,3,2,1]	
 		
-		return [rankvalues[s] for s in cards]
+		return [CONST_RANK_VALUES[s] for s in cards]
 	
 	def of_a_kind(numCards, butnot=None):	
 		if butnot == None:
