@@ -1,4 +1,9 @@
 {
+  "test_hand_hasher.py::test_hash_hand_None_returns_0": true,
+  "test_hand_hasher.py::test_hash_handlist_As_returns_": true,
+  "test_hand_hasher.py::test_hash_handlist_As_returns_001110": true,
+  "test_hand_hasher.py::test_hash_handlist_As_returns_1001110": true,
+  "test_hand_hasher.py::test_hash_handstring_None_returns_0": true,
   "test_hand_ranker.py::test_answer": true,
   "test_hand_ranker.py::test_convert_hand_string_to_hand_integer": true,
   "test_hand_ranker.py::test_rank_hand_AsKsQsJs10s_returns_9_AKQJ10": true,
