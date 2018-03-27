@@ -80,8 +80,16 @@ def test_hash_handlist_As2d_returns_1001110():
 	assert actual == expected	
 
 	
-def test_order_hand_Ad4sAcAs9s_returns_x():
+def test_order_hand_Ad4sAcAs9s_returns_111110011110001110111001011100():
 	hand = HandHasher.split_hand("Ad,4s,Ac,As,9s")
+
+	actual = HandHasher.hash_handlist(hand)
+	expected = '111110011110001110111001011100'
+	
+	assert actual == expected
+	
+def test_order_hand_As9sAcAd4s_returns_111110011110001110111001011100():
+	hand = HandHasher.split_hand("As,9s,Ac,Ad,4s")
 
 	actual = HandHasher.hash_handlist(hand)
 	expected = '111110011110001110111001011100'
