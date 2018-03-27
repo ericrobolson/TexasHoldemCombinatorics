@@ -1,4 +1,7 @@
 {
+  "test_hand_hasher.py::test_get_int_rank_2c3c4c5c6c_returns_9605218": true,
+  "test_hand_hasher.py::test_get_int_rank_2d2c4d5d6d_returns_308449378": true,
+  "test_hand_hasher.py::test_get_int_rank_2d4c7d5cAd_returns_69277860": true,
   "test_hand_hasher.py::test_hash_hand_None_returns_0": true,
   "test_hand_hasher.py::test_hash_handlist_Ac_returns_001110": true,
   "test_hand_hasher.py::test_hash_handlist_As2d_returns_1001110": true,
@@ -11,6 +14,7 @@
   "test_hand_hasher.py::test_unhash_1048112732_returns_As9sAcAd4s": true,
   "test_hand_ranker.py::test_answer": true,
   "test_hand_ranker.py::test_convert_hand_string_to_hand_integer": true,
+  "test_hand_ranker.py::test_get_int_rank_Ac2c3c4c5c_returns_9605218": true,
   "test_hand_ranker.py::test_rank_hand_AsKsQsJs10s_returns_9_AKQJ10": true,
   "test_sample.py::test_answer": true
 }

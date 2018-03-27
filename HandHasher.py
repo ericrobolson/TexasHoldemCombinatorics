@@ -12,13 +12,16 @@ def order_hand(handString):
 def order_hand_list(hand):
 	return sorted([s for r,s in enumerate(hand)], key=lambda i:(PokerRules.CONST_RANK_VALUES[i[0]], i[1]), reverse=True)
 
-def i_to_b(i):
+def i_to_b(i, pad_to=0):
 	binary_number = ''
 	
 	if i == 0 or i == None:
 		return '0'
 	else:
 		binary_number = bin(i)[2:]
+				
+	if (pad_to > 0):
+		return binary_number.rjust(pad_to, '0')
 				
 	return binary_number
 	
@@ -55,7 +58,7 @@ def hash_handlist(hand):
 def hash_handstring(hand_str):	
 	return hash_handlist(split_hand(handString))
 	
-def unhash(i):
+def unhash_hand(i):
 	binary_number = bin(i)[2:]
 	binary_hand = binary_number.rjust(CONST_CARD_BIT_LENGTH * CONST_HAND_SIZE, CONST_CARD_BINARY_PAD_VALUE)
 	split_hand = re.findall('......', binary_hand)
@@ -77,8 +80,25 @@ def unhash(i):
 	
 	cards_in_hand = list()
 	for binary_card in binary_hand:
-		print(binary_card)
 		cards_in_hand.append( get_card(binary_card))
 	
 	return cards_in_hand
+	
+
+def get_int_rank(handStr):
+	handList = list(PokerRules.rank_hand_list(split_hand(handStr)))
+	
+	hand_power_len = 4
+	rank_len = 5
+	
+	ranking = i_to_b(handList[0],hand_power_len)
+		
+	for set in handList[1]:
+		for card in set:
+			binary_card = i_to_b(card, rank_len)
+			ranking += binary_card
+	
+	print(ranking)
+	
+	return int(ranking, 2)
 	

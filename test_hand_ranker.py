@@ -84,3 +84,4 @@ def test_get_best_hand_Ad2s3s4s5d8s9s_returns_2s3s4s8s9s():
 	expected = ['2s','3s','4s','8s','9s']
 	
 	assert actual == expected
+	

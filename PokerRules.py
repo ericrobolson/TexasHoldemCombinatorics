@@ -21,7 +21,6 @@ def rank_hand(handString):
 def rank_hand_list(hand):	
 	suits = [s[1] for r,s in enumerate(hand)]
 	ranks = sorted([s[0] for r,s in enumerate(hand)], key=lambda i:CONST_RANK_VALUES[i], reverse=True)
-	print(suits)
 	
 	max_rank = CONST_RANK_VALUES[ranks[0]]
 	min_rank = CONST_RANK_VALUES[ranks[-1]]
@@ -116,3 +115,4 @@ def get_best_hand(handString):
 					best_hand_value = new_hand_value			
 	
 	return list(best_hand)
+	

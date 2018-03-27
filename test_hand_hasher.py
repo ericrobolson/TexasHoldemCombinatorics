@@ -97,18 +97,57 @@ def test_order_hand_As9sAcAd4s_returns_1048112732():
 	assert actual == expected
 	
 	
-def test_unhash_14_returns_Ac():
+def test_unhash_hand_14_returns_Ac():
 	input = 14
 	expected = ['Ac']
-	actual = HandHasher.unhash(input)
+	actual = HandHasher.unhash_hand(input)
 	
 	assert actual == expected
 	
 
-def test_unhash_1048112732_returns_AsAdAc9s4s():
+def test_unhash_hand_1048112732_returns_AsAdAc9s4s():
 	input = 1048112732
 
-	actual = HandHasher.unhash(input)
+	actual = HandHasher.unhash_hand(input)
 	expected = ['As', 'Ad', 'Ac', '9s', 'Qd']
 	
 	assert actual == expected
+
+def test_get_int_rank_Ac2c3c4c5c_returns_307366977():
+	expected = 307366977
+	actual = HandHasher.get_int_rank("Ac,2c,3c,4c,5c")
+	
+	assert actual == expected
+	
+def test_get_int_rank_2cAc3c5c4c_returns_307366977():
+	expected = 307366977
+	actual = HandHasher.get_int_rank("2c,Ac,3c,5c,4c")
+	
+	assert actual == expected
+	
+def test_get_int_rank_2c3c4c5c6c_returns_308449378():
+	expected = 308449378
+	actual = HandHasher.get_int_rank("2c,3c,4c,5c,6c")
+	
+	assert actual == expected
+	
+def test_get_int_rank_2d3d4d5d6d_returns_308449378():
+	expected = 308449378
+	actual = HandHasher.get_int_rank("2d,3d,4d,5d,6d")
+	
+	assert actual == expected
+
+def test_get_int_rank_2d2c4d5d6d_returns_69277860():
+	expected = 69277860
+			   
+	actual = HandHasher.get_int_rank("2d,2c,4d,5d,6d")
+	
+	assert actual == expected
+	
+def test_get_int_rank_2d4c7d5cAd_returns_48469122():
+	expected = 48469122
+			   
+	actual = HandHasher.get_int_rank("2d,4c,7d,5d,Ad")
+	
+	assert actual == expected
+	
