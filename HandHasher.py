@@ -1,5 +1,6 @@
 import itertools
 import PokerRules
+import re
 
 def split_hand(handString):
 	return handString.split(',')
@@ -21,15 +22,17 @@ def i_to_b(i):
 				
 	return binary_number
 	
+CONST_HAND_SIZE = 5
 CONST_CARD_BIT_LENGTH = 6 # 2 bits for suit, 4 bits for rank
 CONST_CARD_BINARY_PAD_VALUE = '0'
-CONST_SUIT_VALUES = {'c':0, 'd':1, 'h':2,'s':3}
+CONST_SUIT_BINARY_VALUES = {'c':'00', 'd':'01', 'h':'10','s':'11'}
+CONST_SUIT_BINARY_LENGTH = 2
 CONST_RANK_VALUES = dict((r,i) 
                    for i,r in enumerate('..23456789TJQKA'))
 	
 def hash_handlist(hand):
 	if (hand == None or len(hand) == 0):
-		return i_to_b(0)
+		return 0
 	
 	binary_hand = ''
 	
@@ -37,19 +40,45 @@ def hash_handlist(hand):
 	CONST_SUIT_INDEX = 1
 	
 	for card in order_hand_list(hand):
-		suit = CONST_SUIT_VALUES[card[CONST_SUIT_INDEX]]
 		rank = CONST_RANK_VALUES[card[CONST_RANK_INDEX]]	
-	
-		binary_suit = i_to_b(suit)
 		binary_rank = i_to_b(rank)
+		
+		binary_suit = CONST_SUIT_BINARY_VALUES[card[CONST_SUIT_INDEX]]	
 						
 		binary_hand += (binary_suit + binary_rank).rjust(CONST_CARD_BIT_LENGTH, CONST_CARD_BINARY_PAD_VALUE)
 	
 	
-	return binary_hand
+	base2 = 2
+	
+	return int(binary_hand, base2)
 
 def hash_handstring(hand_str):	
-		
 	return hash_handlist(split_hand(handString))
 	
+def unhash(i):
+	binary_number = bin(i)[2:]
+	binary_hand = binary_number.rjust(CONST_CARD_BIT_LENGTH * CONST_HAND_SIZE, CONST_CARD_BINARY_PAD_VALUE)
+	split_hand = re.findall('......', binary_hand)
+	empty_card = '000000'
+		
+	def get_card(binary_card):
+		def get_key(dict, value):
+			return (list(dict.keys())[list(dict.values()).index(value)])[0][0]
+		
+		suit = binary_card[0:CONST_SUIT_BINARY_LENGTH]
+		rank = int(binary_card[CONST_SUIT_BINARY_LENGTH:], 2)
+		
+		suit = get_key(CONST_SUIT_BINARY_VALUES, suit)
+		rank = get_key(CONST_RANK_VALUES, rank)
+								
+		return rank + suit
+		
+	binary_hand = list(card for card in split_hand if card != empty_card)
+	
+	cards_in_hand = list()
+	for binary_card in binary_hand:
+		print(binary_card)
+		cards_in_hand.append( get_card(binary_card))
+	
+	return cards_in_hand
 	

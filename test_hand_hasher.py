@@ -51,47 +51,64 @@ def test_i_to_b_9_returns_1001():
 	
 def test_hash_handlist_None_returns_0():
 	actual = HandHasher.hash_handlist(None)
-	expected = '0'
+	expected = 0
 	
 	assert actual == expected
 	
 def test_hash_handlist_EmptyList_returns_0():
 	actual = HandHasher.hash_handlist([])
-	expected = '0'
+	expected = 0
 	
 	assert actual == expected
 	
-def test_hash_handlist_As_returns_111110():
+def test_hash_handlist_As_returns_62():
 	actual = HandHasher.hash_handlist(['As'])
-	expected = '111110'
+	expected = 62
 	
 	assert actual == expected
 	
-def test_hash_handlist_Ac_returns_001110():
+def test_hash_handlist_Ac_returns_14():
 	actual = HandHasher.hash_handlist(['Ac'])
-	expected = '001110'
+	expected = 14
 	
 	assert actual == expected
 	
-def test_hash_handlist_As2d_returns_1001110():
+def test_hash_handlist_As2d_returns_3982():
 	actual = HandHasher.hash_handlist(['As', 'Ac'])
-	expected = '111110001110'
+	expected = 3982
 	
 	assert actual == expected	
 
 	
-def test_order_hand_Ad4sAcAs9s_returns_111110011110001110111001011100():
+def test_order_hand_Ad4sAcAs9s_returns_1048112732():
 	hand = HandHasher.split_hand("Ad,4s,Ac,As,9s")
 
 	actual = HandHasher.hash_handlist(hand)
-	expected = '111110011110001110111001011100'
+	expected = 1048112732
 	
 	assert actual == expected
 	
-def test_order_hand_As9sAcAd4s_returns_111110011110001110111001011100():
+def test_order_hand_As9sAcAd4s_returns_1048112732():
 	hand = HandHasher.split_hand("As,9s,Ac,Ad,4s")
 
 	actual = HandHasher.hash_handlist(hand)
-	expected = '111110011110001110111001011100'
+	expected = 1048112732
+	
+	assert actual == expected
+	
+	
+def test_unhash_14_returns_Ac():
+	input = 14
+	expected = ['Ac']
+	actual = HandHasher.unhash(input)
+	
+	assert actual == expected
+	
+
+def test_unhash_1048112732_returns_AsAdAc9s4s():
+	input = 1048112732
+
+	actual = HandHasher.unhash(input)
+	expected = ['As', 'Ad', 'Ac', '9s', 'Qd']
 	
 	assert actual == expected
